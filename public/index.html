@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Records in Table</title>
+</head>
+<body>
+    <center><h1>Dummy Data</h1></center>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Profile Pic</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>E-mail</th>
+                <th>Username</th>
+                <th>Domain</th>
+                <th>IP</th>
+                <th>University</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch the data from the URL
+        fetch('https://dummyjson.com/users')
+            .then(response => response.json())
+            .then(data => {
+                const userTableBody = document.getElementById('userTableBody');
+                data.users.forEach((user, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><img src="${user.image}" alt="Profile Pic" width="50"></td>
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.gender}</td>
+                        <td>${user.email}</td>
+                        <td>${user.username}</td>
+                        <td>${user.domain}</td>
+                        <td>${user.ip}</td>
+                        <td>${user.university}</td>
+                    `;
+                    userTableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
